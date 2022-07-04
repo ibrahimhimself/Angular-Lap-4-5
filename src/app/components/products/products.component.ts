@@ -9,7 +9,9 @@ import { Store } from 'src/app/Models/store';
 })
 export class ProductsComponent implements OnInit {
 
-  clientName:string = "Thanks for purchasing from our Store Ibrahim";
+  clientName:string = " Ibrahim Saad";
+  msg:string = "Thanks for purchasing from our Store";
+
   productList:IProduct[];
   storeInfoClass : Store;
 constructor(){
@@ -35,7 +37,6 @@ toggleMsg(){
 
 showImage:boolean = true;
 toggleImage(){
-
   this.showImage =! this.showImage;
 }
 
