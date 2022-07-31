@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideMenuComponent implements OnInit {
 
+  userNationalId:string = "29906011601918";
+  userCreditCardNumber:string = "1546223655889741"
+
   constructor() { }
 
   ngOnInit(): void {

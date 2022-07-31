@@ -3,6 +3,6 @@ export interface IProduct {
     Name:string,
     Quantity:number,
     Price:number,
-    Img:string,
+    Img?:string,
     CateogryID:Number
 }

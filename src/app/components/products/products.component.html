@@ -1,39 +1,27 @@
-<h1>{{storeInfoClass.name}}</h1>
-
-<!-- <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-    Dropdown button
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="#" *ngFor="let c of productList">{{c.CateogryID +': '+ c.Name}}</a></li>
-    <li *ngFor="let c of productList">
-      <ng-container [ngSwitch]="c.CateogryID">
-        <ng-container *ngSwitchCase="1">{{c.CateogryID == 1}}</ng-container>
-        <ng-container *ngSwitchCase="2">{{c.CateogryID == 2}}</ng-container>
-        <ng-container *ngSwitchCase="3">{{c.CateogryID == 3}}</ng-container>
-      </ng-container>
-    </li>
-  </ul>
-</div> -->
-
+<button class="btn btn-danger" (click)="getAllCat()">Get All Categories</button>
+<button class="btn btn-success ms-5" [routerLink]="['/newProduct']">New Product</button>
 <table class="table text-center mb-5">
   <thead>
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Name</th>
       <th scope="col">Price</th>
+      <th scope="col">Details</th>
       <th scope="col">Img</th>
       <th scope="col">Quantity</th>
       <th scope="col">CateogryID</th>
       <th scope="col">Date Now</th>
+      <th scope="col">Count</th>
+      <th scope="col">Add To Cart</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of productList ; let i = index" [hidden]="item.Quantity==0"
-    [ngClass]="{'bg-warning':item.Quantity == 1, 'text-primary':item.Quantity > 1}">
+    <tr *ngFor="let item of productListCat ; let i = index" [hidden]="item.Quantity==0" [ngClass]="{'bg-warning':item.Quantity == 1 , 'text-danger':item.Quantity == 1 , 'text-primary':item.Quantity > 1}">
       <td>{{i+1}}</td>
       <td>{{item.Name}}</td>
-      <td>{{item.Price|currency:'EGP':'code'}}</td>
+      <td>{{item.Price|currency:'Egy':'code'}}</td>
+      <!-- <td><button class="btn btn-danger" (click)="openProductDetails(item.ID)">Details</button></td> -->
+      <td><button class="btn btn-danger" [routerLink]="['/products',item.ID]">Details</button></td>
       <td><img width="20%" [src]="item.Img"></td>
       <!-- <td>{{item.Quantity}}</td> -->
       <ng-container [ngSwitch]="item.Quantity">
@@ -43,26 +31,50 @@
         <ng-container *ngSwitchDefault>{{item.Quantity}}</ng-container>
       </ng-container>
       <td>{{item.CateogryID}}</td>
-      <td>{{dateNow|date:"mediumDate"}}</td>
-      <td><button class="btn btn-success" (click)="increaseQuantity">Buy</button></td>
+      <td>{{dateNow|date:'mediumDate'}}</td>
+      <td><input type="number" name="count" #itemCount></td>
+      <td><button class="btn btn-success" (click)="increaseQuantity(item , itemCount.value)" (click)="updateTotalPrice(item.Price , itemCount.value)" (click)="getCatData(item.Name , item.Price , itemCount.value)">Add To Cart</button></td>
     </tr>
   </tbody>
 </table>
-<h2>{{nationalID|date}}</h2>
-<div class="container-fluid mt-5">
+
+
+<!-- <table class="table text-center mb-5">
+  <thead class="table-dark">
+      <tr>
+          <td>Name</td>
+          <td>Price</td>
+          <td>Count</td>
+          <td>Remove</td>
+      </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let z of catData">
+      <td>{{z.Name}}</td>
+      <td>{{z.Price|currency:'EGP '}}</td>
+      <td>{{z.Count}}</td>
+      <td><button class="btn btn-danger">Remove</button></td>
+    </tr>
+  </tbody>
+  <tfoot class="table-dark">
+    <tr>Total: <td>{{totalPrice|currency:'EGP '}}</td></tr>
+  </tfoot>
+</table> -->
+
+<!-- <div class="container-fluid mt-5">
   <div class="row">
     <div class="col-4">
       <div class="card" style="width: 18rem;" appProductCard>
           <img src="{{storeInfoClass.logo}}" *ngIf="showImage" class="card-img-top">
           <div class="card-body">
             <h5 class="card-title">{{storeInfoClass.name}}</h5>
-            <h6 class="card-title text-danger" *ngIf="showMsg">{{msg + clientName}}</h6>
+            <h6 class="card-title text-danger" *ngIf="showMsg">{{"Thanks for purchasing from our Store " + clientName}}</h6>
             <ul>
               <li *ngFor="let i of storeInfoClass.branches">{{i}}</li>
             </ul>
-            <button class="btn btn-success" (click)="toggleImage()" (click)="toggleMsg()">Buy</button>
+            <button class="btn btn-success" (click)="toggle()">Buy</button>
           </div>
         </div>
     </div>
   </div>
-</div>
+</div> -->
